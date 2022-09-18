@@ -1,11 +1,12 @@
 package com.bridgelabz;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InvoiceServiceTest {
-    InvoiceGenerator invoiceGenerator;
+    public static InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
 
     @Test
     public void givenDistanceAndTime_ShouldReturnTotalFare() {
@@ -41,5 +42,21 @@ public class InvoiceServiceTest {
                 new Ride(0.1,1)};
         double fare = invoiceGenerator.calculateFare(rides);
         assertEquals(30.0,fare,0.0);
+    }
+    /*
+    Step 3 - Enhanced Invoice
+    calculating total number of rides
+    total fare
+    Avrage fare per Ride
+     */
+    @Test
+    public void givenMultipleRidesShouldReturnRideSummary() {
+
+        Ride[] rides = {new Ride(2.0, 5),
+                new Ride(0.1, 1)};
+
+        InvoiceSummary summary = invoiceGenerator.getInvoiceSummary(rides);
+        InvoiceSummary expectedInvoicesummary = new InvoiceSummary(2, 30.0);
+        assertEquals(expectedInvoicesummary, summary);
     }
 }
